@@ -1,0 +1,7 @@
+# the demo configuration (yaml format)
+# rename to "conf.yaml" to run
+DocumentRoot: /var/www/html
+Listen: 127.0.0.1:8080
+SSLListen: 127.0.0.1:8443
+SSLCert: /etc/ssl/certs/cert.pem
+SSLKey: /etc/ssl/private/key.pem
