@@ -6,40 +6,67 @@ import (
     "net/http"
 )
 
-func main() {
+type SrvConfig struct {
+    DocumentRoot    string
+    Listen          string
+    TLS             bool
+    TLSListen       string
+    TLSCert         string
+    TLSKey          string
+}
+
+func (c *SrvConfig) read(fName string) (err error) {
 
     // read in a yaml formated configuration
-    config, err := yaml.ReadFile("conf.yaml")
+    config, err := yaml.ReadFile(fName)
     if err != nil {
         fmt.Printf("Error: %s\n", err)
     }
 
-    fPath, _ := config.Get("DocumentRoot") 
-    lServ, _ := config.Get("Listen")
-    sServ, _ := config.Get("SSLListen")
-    cert, _ := config.Get("SSLCert")
-    key, _ := config.Get("SSLKey")
+    c.DocumentRoot, _ = config.Get("DocumentRoot") 
+    c.Listen, _ = config.Get("Listen")
+    c.TLS, _ = config.GetBool("TLS")
+    c.TLSListen, _ = config.Get("TLSListen")
+    c.TLSCert, _ = config.Get("TLSCert")
+    c.TLSKey, _ = config.Get("TLSKey")
+
+    return
+}
+
+func main() {
+
+    // get a configuration 
+    var curConf SrvConfig
+
+    err := curConf.read("conf.yaml")
+    if err != nil {
+        fmt.Printf("Error: %s\n", err)
+    }
 
     fmt.Println("Configuration Read")
 
-    fmt.Println(fPath, lServ, sServ, cert, key)
+    fmt.Println(curConf)
 
     mux := http.NewServeMux()
-    files := http.FileServer(http.Dir(fPath))
+    files := http.FileServer(http.Dir(curConf.DocumentRoot))
     mux.Handle("/", http.StripPrefix("/", files))
 
+    if curConf.TLS {
+        fmt.Println("Start TLS Server")
+        t_server := http.Server{
+            Addr:   curConf.TLSListen,
+            Handler: mux,
+        }
+        t_server.ListenAndServeTLS(curConf.TLSCert, curConf.TLSKey)
 
-    h_server := http.Server{
-        Addr:       lServ,
-        Handler:    mux,
+    } else {    
+        fmt.Println("Start Server")
+        h_server := http.Server{
+            Addr:       curConf.Listen,
+            Handler:    mux,
+        }
+        h_server.ListenAndServe()
     }
-    h_server.ListenAndServe()
-
-    t_server := http.Server{
-        Addr:   sServ,
-        Handler: mux,
-    }
-    t_server.ListenAndServeTLS(cert, key)
 
 }
 
