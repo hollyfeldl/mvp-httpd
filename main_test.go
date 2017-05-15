@@ -10,7 +10,7 @@ import(
 
 func TestReadConfig(t *testing.T) {
     var curConf SrvConfig
-    err := curConf.read("conf-demo.yaml")
+    err := curConf.read("mvp-httpd-demo.yaml")
     if err != nil {
         t.Error(err)
     }
@@ -45,7 +45,7 @@ func TestBasicHTTP(t *testing.T) {
     // ensure there is an index.html in /var/www/html
 
     var curConf SrvConfig
-    err := curConf.read("conf-demo.yaml")
+    err := curConf.read("mvp-httpd.yaml")
     if err != nil {
         t.Error(err)
     }

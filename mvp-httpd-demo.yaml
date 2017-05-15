@@ -1,5 +1,5 @@
 # the demo configuration (yaml format)
-# rename to "conf.yaml" to run
+# rename to "mvp-httpd.yaml" to run
 DocumentRoot: /var/www/html
 Listen: 127.0.0.1:8080
 TLS: false
