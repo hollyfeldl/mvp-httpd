@@ -1,0 +1,8 @@
+# the demo configuration (yaml format)
+# rename to "mvp-httpd.yaml" to run
+DocumentRoot: /var/www/html
+Listen: :8080
+TLS: true
+TLSListen: :8443
+TLSCert: /etc/ssl/certs/markrank-cert.pem
+TLSKey: /etc/ssl/private/markrank-key.pem
