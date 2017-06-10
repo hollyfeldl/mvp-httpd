@@ -91,8 +91,7 @@ echo "INFO - Build a new cert with a 90 day life"
 openssl req -new -x509 -key ./ssl/markrank-key.pem -out ./ssl/markrank-cert.pem -days 90 -nodes
 
 echo "INFO - Come up with unique container label"
-#curLabel=$(date --rfc-3339=date)
-curLabel="2017-06-10c"
+curLabel=$(date --rfc-3339=date)
 echo "INFO - Container will be "$curContainer":"$curLabel
 
 echo "INFO - Run SASS to build the CSS"
