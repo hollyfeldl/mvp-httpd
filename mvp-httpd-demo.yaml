@@ -1,5 +1,6 @@
 # the demo configuration (yaml format)
 # rename to "mvp-httpd.yaml" to run
+# NOTE: run on high ports when testing in user account
 DocumentRoot: /var/www/html
 Listen: 127.0.0.1:8080
 TLS: false

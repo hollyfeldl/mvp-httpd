@@ -1,8 +1,7 @@
-# the demo configuration (yaml format)
-# rename to "mvp-httpd.yaml" to run
+# the docker version (yaml format)
 DocumentRoot: /var/www/html
 Listen: :80
 TLS: true
 TLSListen: :443
-TLSCert: /etc/ssl/certs/markrank-cert.pem
-TLSKey: /etc/ssl/private/markrank-key.pem
+TLSCert: /etc/ssl/certs/fullchain.pem
+TLSKey: /etc/ssl/private/privkey.pem

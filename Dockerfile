@@ -9,8 +9,8 @@ RUN go install github.com/hollyfeldl/mvp-httpd
 COPY mvp-httpd-docker.yaml /go/bin/mvp-httpd.yaml
 
 ADD ./html /var/www/html/
-COPY ./ssl/markrank-cert.pem /etc/ssl/certs
-COPY ./ssl/markrank-key.pem /etc/ssl/private
+COPY ./ssl/fullchain.pem /etc/ssl/certs
+COPY ./ssl/privkey.pem /etc/ssl/private
 
 WORKDIR /go/bin
 ENTRYPOINT /go/bin/mvp-httpd
