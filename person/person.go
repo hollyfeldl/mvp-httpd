@@ -3,7 +3,7 @@ package person
 import (
 	"errors"
 	"fmt"
-    "github.com/satori/go.uuid"
+    "github.com/google/uuid"
 )
 
 // create a structure and methods to maintain an object for the cards
@@ -22,7 +22,7 @@ func NewPerson(curEMail string, curPersona string, curDisplayName string, curBac
     p := new(Person)
 
     // create a RFC 4122 V4 UUID
-    curUUID, err := uuid.NewV4()
+    curUUID, err := uuid.NewRandom()
     if err != nil {
         return nil, errors.New(fmt.Sprintf("Failed to get a UUID: %s", err))
     }

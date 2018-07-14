@@ -3,7 +3,7 @@ package person
 import (
 	"fmt"
 	"testing"
-    "github.com/satori/go.uuid"
+    "github.com/google/uuid"
 )
 
 func TestPopulatePerson (t *testing.T) {
@@ -12,7 +12,7 @@ func TestPopulatePerson (t *testing.T) {
 
     curPerson, err := NewPerson("prsn@gmail.com", "Prsn", "Prsn Name", "mypic.jpg")
     if err != nil {
-        t.Errorf("Error creating new person", err)
+        t.Errorf("Error creating new person %s", err)
     }
 
     curPerson.NewPersonURLGroup("Grp")
@@ -20,7 +20,7 @@ func TestPopulatePerson (t *testing.T) {
     curPerson.AddPersonURL("Grp", "url2","http://url2.com/")
 
     // test UUID for a type 4 version
-    if theUUID, _ := uuid.FromString(curPerson.UID); theUUID.Version() != 4 {
+    if theUUID, _ := uuid.Parse(curPerson.UID); theUUID.Version() != 4 {
         t.Errorf("UUID - Expected V4 UUID but got %b", theUUID.Version())
     }
 
